@@ -1,0 +1,5 @@
+{
+  "name": "Live Job Placement Dashboard",
+  "description": "An Excel-like application for placement departments to find and manage entry-level job openings. It uses AI to generate live job data based on filters for qualifications, sectors, and location tiers, with an option to download the results.",
+  "requestFramePermissions": []
+}
