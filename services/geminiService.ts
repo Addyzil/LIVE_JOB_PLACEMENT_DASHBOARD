@@ -1,7 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Filters, MarketReport } from '../types';
 
-// FIX: Per @google/genai guidelines, initialize with process.env.API_KEY directly. This resolves the TypeScript error with `import.meta.env`.
+// Fix: Use process.env.API_KEY directly for GoogleGenAI initialization as per guidelines.
+// This resolves the TypeScript error for 'import.meta.env' and aligns with the API key handling requirements.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const marketReportSchema = {
@@ -152,7 +153,6 @@ export const fetchMarketReport = async (filters: Filters): Promise<MarketReport>
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
-        // FIX: Per @google/genai guidelines, system instructions should be passed via the config object.
         systemInstruction,
         temperature: 0.3,
         responseMimeType: "application/json",
