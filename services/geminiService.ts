@@ -1,7 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Filters, MarketReport } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+// Fix: API key must be retrieved from process.env.API_KEY as per guidelines.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const marketReportSchema = {
   type: Type.OBJECT,
