@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Filters, MarketReport } from '../types';
 
-// Fix: Use process.env.API_KEY as per the coding guidelines to resolve the TypeScript error.
+// FIX: Per @google/genai guidelines, initialize with process.env.API_KEY directly. This resolves the TypeScript error with `import.meta.env`.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const marketReportSchema = {
@@ -127,9 +127,9 @@ export const fetchMarketReport = async (filters: Filters): Promise<MarketReport>
     : `For each tier, conduct a focused analysis exclusively for the **"${jobRole}"** position suitable for a ${qualification} graduate. Do not include any other roles.`;
 
 
-  const prompt = `
-    You are an expert job market analyst for India, tasked with providing a strategic, tier-based analysis of the current, live entry-level job market. Your entire response must be a single, valid JSON object that strictly adheres to the provided schema. Do not output any markdown.
+  const systemInstruction = `You are an expert job market analyst for India, tasked with providing a strategic, tier-based analysis of the current, live entry-level job market. Your entire response must be a single, valid JSON object that strictly adheres to the provided schema. Do not output any markdown.`;
 
+  const prompt = `
     **User Filters:**
     - **Qualification:** ${qualification}
     - **Sector Focus:** ${sector}
@@ -152,6 +152,8 @@ export const fetchMarketReport = async (filters: Filters): Promise<MarketReport>
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
+        // FIX: Per @google/genai guidelines, system instructions should be passed via the config object.
+        systemInstruction,
         temperature: 0.3,
         responseMimeType: "application/json",
         responseSchema: marketReportSchema,
