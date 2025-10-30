@@ -1,8 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Filters, MarketReport } from '../types';
 
-// Use import.meta.env.VITE_API_KEY to access environment variables in Vite
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
+// Fix: Use process.env.API_KEY as per the coding guidelines to resolve the TypeScript error.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const marketReportSchema = {
   type: Type.OBJECT,
